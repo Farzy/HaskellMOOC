@@ -111,7 +111,7 @@ balanceTree :: Tree -> Tree
 balanceTree = go . sort . tree2list'
     where go :: [Int] -> Tree
           go []     = Leaf
-          go (x:[]) = Node x Leaf Leaf
+--        go (x:[]) = Node x Leaf Leaf
           go xs     = let
                         mid          = div ((length xs) - 1) 2
                         midValue     = xs !! mid
