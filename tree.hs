@@ -1,4 +1,6 @@
 -- tree.hs
+-- Author: Farzad FARID
+-- Haskell MOOC week 3
 
 data Tree = Leaf | Node Int Tree Tree deriving Show
 
@@ -32,18 +34,26 @@ addNewMax (Node x t1 t2)   = Node x t1 (addNewMax t2)
 
 -- addNewMax (Node 3 Leaf (Node 42 (Node 5 Leaf Leaf) Leaf))
 
+-------------------------------------------------------------------------------
+
+-- Convert Tree to list
+-- Root first, then left subtree, then right subtree 
 tree2list :: Tree -> [Int]
 tree2list Leaf = []
 tree2list (Node x t1 t2) = x : ((tree2list t1) ++ (tree2list t2))
 
 -- tree2list t
 
+-- Convert Tree to list
+-- Left subtree, then root, then right subtree 
 tree2list' :: Tree -> [Int]
 tree2list' Leaf = []
 tree2list' (Node x t1 t2) = (tree2list' t1) ++ (x : (tree2list' t2))
 
 -- tree2list' t
 
+-- Convert Tree to list
+-- Left subtree, then right subtree, then root
 tree2list'' :: Tree -> [Int]
 tree2list'' Leaf = []
 tree2list'' (Node x t1 t2) = (tree2list'' t1) ++ (tree2list'' t2) ++ [x]
