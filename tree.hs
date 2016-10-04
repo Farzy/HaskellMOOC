@@ -50,6 +50,7 @@ tree2list Leaf = []
 tree2list (Node x t1 t2) = x : ((tree2list t1) ++ (tree2list t2))
 
 -- tree2list t
+-- [3,5,8,7,2,9]
 
 -- Convert Tree to list
 -- Left subtree, then root, then right subtree 
@@ -58,6 +59,7 @@ tree2list' Leaf = []
 tree2list' (Node x t1 t2) = (tree2list' t1) ++ (x : (tree2list' t2))
 
 -- tree2list' t
+-- [8,5,3,2,7,9]
 
 -- Convert Tree to list
 -- Left subtree, then right subtree, then root
@@ -66,6 +68,7 @@ tree2list'' Leaf = []
 tree2list'' (Node x t1 t2) = (tree2list'' t1) ++ (tree2list'' t2) ++ [x]
 
 -- tree2list'' t
+-- [8,5,2,9,7,3]
 
 ---------------------------------------------------------------------------------
 
@@ -88,3 +91,13 @@ insertOrdered (Node x t1 t2) n
 
 -- *Main> insertOrdered tsorted 5
 -- Node 5 (Node 5 (Node 1 Leaf Leaf) Leaf) (Node 7 Leaf Leaf)
+
+-- Combination of insertion and conversion to list:
+-- *Main> tree2list' $ insertOrdered tsorted 4
+-- [1,4,5,7]
+-- *Main> tree2list' $ insertOrdered tsorted 5
+-- [1,5,5,7]
+-- *Main> tree2list' $ insertOrdered tsorted 9
+-- [1,5,7,9]
+-- *Main> tree2list' $ insertOrdered tsorted 0
+-- [0,1,5,7]
