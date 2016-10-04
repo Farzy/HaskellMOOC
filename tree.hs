@@ -2,6 +2,8 @@
 -- Author: Farzad FARID
 -- Haskell MOOC week 3
 
+import Data.List
+
 data Tree = Leaf | Node Int Tree Tree deriving Show
 
 -- Sample trees
@@ -100,3 +102,24 @@ insertOrdered (Node x t1 t2) n
 -- [1,5,7,9]
 -- *Main> tree2list' $ insertOrdered tsorted 0
 -- [0,1,5,7]
+
+
+--------------------------
+-- Balance a tree
+-- We first flatten the tree and use the "sort" function from Data.List
+balanceTree :: Tree -> Tree
+balanceTree = go . sort . tree2list'
+    where go :: [Int] -> Tree
+          go []     = Leaf
+          go (x:[]) = Node x Leaf Leaf
+          go xs     = let
+                        mid          = round $ fromIntegral ((length xs) - 1) / 2
+                        midValue     = xs !! mid
+                        leftSubtree  = take mid xs
+                        rightSubtree = drop (mid+1) xs
+                      in Node midValue (go leftSubtree) (go rightSubtree)
+
+-- *Main> t
+-- Node 3 (Node 5 (Node 8 Leaf Leaf) Leaf) (Node 7 (Node 2 Leaf Leaf) (Node 9 Leaf Leaf))
+-- *Main> balanceTree t
+-- Node 5 (Node 2 Leaf (Node 3 Leaf Leaf)) (Node 8 (Node 7 Leaf Leaf) (Node 9 Leaf Leaf))
