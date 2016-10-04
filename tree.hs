@@ -76,8 +76,7 @@ tree2list'' (Node x t1 t2) = (tree2list'' t1) ++ (tree2list'' t2) ++ [x]
 insertOrdered :: Tree -> Int -> Tree
 insertOrdered Leaf n = Node n Leaf Leaf
 insertOrdered (Node x t1 t2) n
-  | n == x = Node x (Node n t1 Leaf) t2
-  | n < x  = Node x (insertOrdered t1 n) t2
+  | n <= x = Node x (insertOrdered t1 n) t2
   | n > x  = Node x t1 (insertOrdered t2 n)
 
 -- *Main> insertOrdered tsorted 2
@@ -90,7 +89,7 @@ insertOrdered (Node x t1 t2) n
 -- Node 5 (Node 1 Leaf Leaf) (Node 7 Leaf (Node 8 Leaf Leaf))
 
 -- *Main> insertOrdered tsorted 5
--- Node 5 (Node 5 (Node 1 Leaf Leaf) Leaf) (Node 7 Leaf Leaf)
+-- Node 5 (Node 1 Leaf (Node 5 Leaf Leaf)) (Node 7 Leaf Leaf)
 
 -- Combination of insertion and conversion to list:
 -- *Main> tree2list' $ insertOrdered tsorted 4
