@@ -5,17 +5,12 @@
 import System.Random
 
 turn :: Int -> Int -> Int -> IO ()
-turn num guess tries =
-    if tries == 0
-        then putStrLn "You lose!" 
-        else case compare num guess of
-                EQ -> putStrLn "You win!"
-                LT -> do
-                        putStrLn "Too high..."
-                        mkguess num tries
-                GT -> do
-                        putStrLn "Too low..."
-                        mkguess num tries 
+turn num guess tries
+    | tries == 0   = putStrLn "You lose!" 
+    | num == guess = putStrLn "You win!"
+    | otherwise    = do
+        putStrLn ("Too " ++ (if num < guess then "high" else "low") ++ "...")
+        mkguess num tries 
 
 mkguess :: Int -> Int -> IO ()
 mkguess num tries =
