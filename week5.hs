@@ -23,3 +23,11 @@ perfect :: Int -> Bool
 perfect x = sumproperfactors x == x
 
 listPerfect = filter perfect [2..]
+
+-----
+-- William Morgan
+triples = [ (a,b,c) | c <- [1..], b <- up c, cp b c, a <- up b, pt a b c ]
+    where
+        up n = [1..(n - 1)]
+        pt a b c = a^2 + b^2 == c^2
+        cp a b = if b == 0 then a == 1 else cp b (a `mod` b)
